@@ -97,7 +97,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./frontend/
-          platforms: linux/arm64
+          platforms: linux/arm64 #
           push: true
           tags: awakepn/kittygram_frontend:latest
   build_gateway_and_push_to_docker_hub:
@@ -151,6 +151,7 @@ jobs:
             sudo docker compose -f docker-compose.production.yml down
             sudo docker compose -f docker-compose.production.yml up -d
             sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
+            sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
             sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /static/static/
 
   send_message:
